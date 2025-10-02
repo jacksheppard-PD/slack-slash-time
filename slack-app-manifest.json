@@ -1,0 +1,45 @@
+{
+  "display_information": {
+    "name": "Time Bot",
+    "description": "A Slack bot that shows current times across multiple timezones with /time command",
+    "background_color": "#2c2d30",
+    "long_description": "Time Bot helps teams coordinate across timezones by showing current times in London, Barbados, and New York. Use /time command to get instant timezone information, or specify a country and time for precise conversions."
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "Time Bot",
+      "always_online": true
+    },
+    "slash_commands": [
+      {
+        "command": "/time",
+        "description": "Show current times across multiple timezones",
+        "usage_hint": "[country] [time] - Optional country and time for specific conversions",
+        "should_escape": false
+      }
+    ]
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "commands",
+        "users:read",
+        "im:write",
+        "chat:write"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "request_url": "https://your-app-url.railway.app/slack/events",
+      "bot_events": []
+    },
+    "interactivity": {
+      "is_enabled": true,
+      "request_url": "https://your-app-url.railway.app/slack/interactive"
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}
