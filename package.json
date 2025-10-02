@@ -1,0 +1,33 @@
+{
+  "name": "slack-time-bot",
+  "version": "1.0.0",
+  "description": "Slack bot with /time slash command for London and Barbados timezones",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "setup": "./setup.sh",
+    "deploy": "./deploy.sh",
+    "dev": "node app.js",
+    "pm2:start": "pm2 start app.js --name slack-time-bot",
+    "pm2:stop": "pm2 stop slack-time-bot",
+    "pm2:restart": "pm2 restart slack-time-bot",
+    "pm2:logs": "pm2 logs slack-time-bot"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "chrono-node": "^2.7.6",
+    "dotenv": "^17.2.3",
+    "luxon": "^3.4.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "timezone",
+    "time"
+  ],
+  "author": "GOV.BB Team",
+  "license": "MIT"
+}
