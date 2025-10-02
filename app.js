@@ -6,8 +6,7 @@ require('dotenv').config();
 // Initialize Slack app
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
-  socketMode: true,
-  appToken: process.env.SLACK_APP_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
 // Timezone configuration - easily customizable via environment variables
@@ -380,12 +379,13 @@ app.error((error) => {
 // Start the app
 (async () => {
   try {
-    await app.start();
-  console.log('⚡️ Slack Time Bot is running!');
-  console.log('🌍 Target timezones:');
-  console.log(`   ${TARGET_TIMEZONES.zone1.emoji} ${TARGET_TIMEZONES.zone1.label} (${TARGET_TIMEZONES.zone1.zone})`);
-  console.log(`   ${TARGET_TIMEZONES.zone2.emoji} ${TARGET_TIMEZONES.zone2.label} (${TARGET_TIMEZONES.zone2.zone})`);
-  console.log(`   ${TARGET_TIMEZONES.zone3.emoji} ${TARGET_TIMEZONES.zone3.label} (${TARGET_TIMEZONES.zone3.zone})`);
+    const port = process.env.PORT || 3000;
+    await app.start(port);
+    console.log(`⚡️ Slack Time Bot is running on port ${port}!`);
+    console.log('🌍 Target timezones:');
+    console.log(`   ${TARGET_TIMEZONES.zone1.emoji} ${TARGET_TIMEZONES.zone1.label} (${TARGET_TIMEZONES.zone1.zone})`);
+    console.log(`   ${TARGET_TIMEZONES.zone2.emoji} ${TARGET_TIMEZONES.zone2.label} (${TARGET_TIMEZONES.zone2.zone})`);
+    console.log(`   ${TARGET_TIMEZONES.zone3.emoji} ${TARGET_TIMEZONES.zone3.label} (${TARGET_TIMEZONES.zone3.zone})`);
   } catch (error) {
     console.error('Failed to start app:', error);
     process.exit(1);
