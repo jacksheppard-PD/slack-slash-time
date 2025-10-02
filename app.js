@@ -1,12 +1,18 @@
 const { App } = require('@slack/bolt');
 const { DateTime } = require('luxon');
 const chrono = require('chrono-node');
+const express = require('express');
 require('dotenv').config();
+
+// Initialize Express app
+const expressApp = express();
+expressApp.use(express.json());
 
 // Initialize Slack app
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
+  expressApp: expressApp,
 });
 
 // Timezone configuration - easily customizable via environment variables
@@ -282,6 +288,11 @@ app.command('/time', async ({ command, ack, respond }) => {
       text: '❌ *Error processing time command*\n\nPlease try again or contact support if the issue persists.'
     });
   }
+});
+
+// Add health check endpoint
+expressApp.get('/', (req, res) => {
+  res.json({ status: 'Slack Time Bot is running!' });
 });
 
 // Handle button clicks
